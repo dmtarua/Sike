@@ -9,16 +9,12 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 800;
 
 int main(){
-    GLFWwindow* window = createWindow(SCR_WIDTH, SCR_HEIGHT);
-    if(window == NULL){
-        return 1;
-    }
-    
-    int shaderProgram = compile_shaders();
+    GLFWwindow* window = createWindow(SCR_WIDTH, SCR_HEIGHT); 
+    Shader ourShader("../../shaders/vshader.cg", "../../shaders/fshader.cg");
+
     unsigned int* values = build_vao();
     unsigned int VBO = values[0];
-    unsigned int EBO = values[1];
-    unsigned int VAO = values[2];
+    unsigned int VAO = values[1];
 
     while (!glfwWindowShouldClose(window)){
         processInput(window);
@@ -26,17 +22,15 @@ int main(){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        ourShader.use();
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
     delete_vao();
-    glDeleteProgram(shaderProgram);
-
     glfwTerminate();
     return 0;
 }
