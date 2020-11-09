@@ -15,7 +15,6 @@ int main(){
     }
     
     int shaderProgram = compile_shaders();
-
     unsigned int* values = build_vao();
     unsigned int VBO = values[0];
     unsigned int EBO = values[1];
@@ -35,9 +34,7 @@ int main(){
         glfwPollEvents();
     }
 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    delete_vao();
     glDeleteProgram(shaderProgram);
 
     glfwTerminate();

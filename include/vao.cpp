@@ -2,8 +2,9 @@
 #include "glfw/glfw3.h"
 #include "vao.h"
 
+unsigned int VBO, EBO, VAO;
+
 unsigned int* build_vao(){
-    unsigned int* obj[3];
     float vertices[] = {
          0.5f,  0.5f, 0.0f,  
          0.5f, -0.5f, 0.0f, 
@@ -14,7 +15,6 @@ unsigned int* build_vao(){
         0, 1, 3, 
         1, 2, 3 
     };
-    unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -32,8 +32,13 @@ unsigned int* build_vao(){
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
     glBindVertexArray(0); 
 
-    obj[0] = &VBO;
-    obj[1] = &EBO;
-    obj[2] = &VAO;
+    unsigned int* obj[3] = {&VBO, &EBO, &VAO};
     return *obj;
+}
+
+int delete_vao(){
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    return 0;
 }
