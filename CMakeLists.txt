@@ -9,6 +9,7 @@ find_package(OpenGL REQUIRED)
 
 include_directories(include)
 include_directories(lib/glad/include)
-file(GLOB incfiles include/*.cpp lib/glad/src/glad.c)
+include_directories(lib/stb)
+file(GLOB incfiles include/*.cpp lib/glad/src/glad.c lib/stb/stb_image.cpp)
 add_subdirectory(lib/glfw)
 add_subdirectory(src/)
