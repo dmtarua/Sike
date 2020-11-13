@@ -6,3 +6,4 @@ Sike is a game engine im making in my free time using OpenGL.
 
 * [glfw](https://github.com/glfw/glfw)
 * [glad](https://github.com/Dav1dde/glad)
+* [stb](https://github.com/nothings/stb)
