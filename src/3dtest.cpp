@@ -7,9 +7,9 @@
 #include "shader.h"
 #include "texture.h"
 #include "camera.h"
+#include "window.h"
 #include "vao.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
@@ -39,17 +39,11 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 int main(){
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    Window window(SCR_WIDTH, SCR_HEIGHT);
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Sike", glfwGetPrimaryMonitor(), NULL);
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window.window, mouse_callback);
+    glfwSetScrollCallback(window.window, scroll_callback);
+    glfwSetInputMode(window.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         return -1;
@@ -66,12 +60,12 @@ int main(){
     ourShader.setInt("texture1", 0);
     ourShader.setInt("texture2", 1);
 
-    while (!glfwWindowShouldClose(window)){
+    while (!glfwWindowShouldClose(window.window)){
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        processInput(window);
+        processInput(window.window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -97,7 +91,7 @@ int main(){
             glDrawArrays(GL_TRIANGLES, 0, 36);           
         }
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.window);
         glfwPollEvents();
     }
 
@@ -139,8 +133,4 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos){
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset){
     camera.ProcessMouseScroll(yoffset);
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height){
-    glViewport(0, 0, width, height);
 }
