@@ -52,7 +52,6 @@ int main(){
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         return -1;
     }    
-;
     glEnable(GL_DEPTH_TEST);
 
     Shader ourShader = ResourceManager::LoadShader("../../shaders/vshader.cg", "../../shaders/fshader.cg", nullptr, "test");
