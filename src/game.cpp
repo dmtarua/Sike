@@ -19,7 +19,7 @@ void Game::Init(){
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
     Shader myShader = ResourceManager::GetShader("sprite");
     Renderer = new SpriteRenderer(myShader);
-    ResourceManager::LoadTexture("../../textures/face.png", true, "face");
+    ResourceManager::LoadTexture("../../textures/house.png", true, "house");
 }
 
 void Game::Update(float dt){
@@ -31,6 +31,6 @@ void Game::ProcessInput(float dt){
 }
 
 void Game::Render(){
-    Texture2D myTexture = ResourceManager::GetTexture("face");
-    Renderer->DrawSprite(myTexture, glm::vec2(200, 200), glm::vec2(200, 200), 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+    Texture2D myTexture = ResourceManager::GetTexture("house");
+    Renderer->DrawSprite(myTexture, glm::vec2(200, 200), glm::vec2(300, 300));
 }
