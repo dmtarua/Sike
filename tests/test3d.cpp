@@ -54,7 +54,7 @@ int main(){
     }    
     glEnable(GL_DEPTH_TEST);
 
-    Shader ourShader = ResourceManager::LoadShader("../../shaders/vshader.cg", "../../shaders/fshader.cg", nullptr, "test");
+    Shader ourShader = ResourceManager::LoadShader("../../shaders/3dvshader.cg", "../../shaders/3dfshader.cg", nullptr, "test");
     ourShader.Use();
     Texture2D texture1 = ResourceManager::LoadTexture("../../textures/container.jpg", false, "container");
     Texture2D texture2 = ResourceManager::LoadTexture("../../textures/face.png", true, "face");

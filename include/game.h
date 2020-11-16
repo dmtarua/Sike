@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 
@@ -19,3 +22,5 @@ public:
     void Update(float dt);
     void Render();
 };
+
+#endif

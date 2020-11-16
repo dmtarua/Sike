@@ -1,3 +1,6 @@
+#ifndef VAO_H
+#define VAO_H
+
 class VAO{
 public:
     unsigned int VBOid;
@@ -6,3 +9,5 @@ public:
     VAO();
     int delete_vao();
 };
+
+#endif
