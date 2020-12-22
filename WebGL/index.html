@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebGL</title>
+		<link rel="shortcut icon" href="#"/>
+		<style>
+			html, body {
+      			width: 100%;
+      			height: 100%;
+      			margin: 0;
+				padding: 0;
+			}
+
+			canvas {
+      			width: 100%;
+      			height: 100%;
+  			}
+		  
+			#my-canvas:fullscreen {
+    			background-color: rgb(0, 0, 10);
+			}
+
+			#my-canvas:-webkit-full-screen {
+    			background-color: rgb(0, 0, 10);
+			}
+
+			#my-canvas:-moz-full-screen {
+    			background-color: rgb(0, 0, 10);
+			}
+		</style>
+	
+		<script id="world-shader-vs" type="x-shader/x-vertex">
+			attribute vec3 position;
+			attribute vec2 texture;
+			uniform mat4 model;
+			uniform mat4 projection;
+			uniform mat4 view;
+			varying vec2 texturecoord;
+		
+			void main(void) {
+				gl_Position =  projection * view * model * vec4(position, 1.0);
+				texturecoord = texture;
+			}
+		</script>
+		<script id="world-shader-fs" type="x-shader/x-fragment">
+			precision mediump float;
+			varying vec2 texturecoord;
+			uniform sampler2D sampler;
+
+			void main(void) {
+    			gl_FragColor = texture2D(sampler, vec2(texturecoord.s, texturecoord.t));
+			}
+		</script>
+
+		<script id="portal-shader-vs" type="x-shader/x-vertex">
+			attribute vec3 position;
+			attribute vec2 texture;
+			uniform mat4 model;
+			uniform mat4 projection;
+			uniform mat4 view;
+			varying vec2 texturecoord;
+		
+			void main(void) {
+				gl_Position =  projection * view * model * vec4(position, 1.0);
+				texturecoord = texture;
+			}
+		</script>
+		<script id="portal-shader-fs" type="x-shader/x-fragment">
+			precision mediump float;
+			varying vec2 texturecoord;
+			uniform sampler2D sampler;
+			uniform bool mode;
+
+			void main() {
+				if(mode)
+					gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+				else
+					gl_FragColor = texture2D(sampler, vec2(texturecoord.s, texturecoord.t));
+			}
+		</script>
+		<script type="text/javascript" src="scripts/utils/webgl-utils.js"></script>
+		<script type="text/javascript" src="scripts/utils/maths.js"></script>
+		<script type="text/javascript" src="scripts/assets/cube.js"></script>
+		<script type="text/javascript" src="scripts/assets/portal.js"></script>
+		<script type="text/javascript" src="scripts/assets/ground.js"></script>
+		<script type="text/javascript" src="scripts/texture.js"></script>
+		<script type="text/javascript" src="scripts/assets.js"></script>
+		<script type="text/javascript" src="scripts/camera.js"></script>
+		<script type="text/javascript" src="scripts/collisions.js"></script>
+		<script type="text/javascript" src="scripts/controls.js"></script>
+		<script type="text/javascript" src="scripts/shaders.js"></script>
+		<script type="text/javascript" src="scripts/main.js"></script>
+	</head>
+
+	<body onload="main();">
+		<canvas id="canvas" style="background-color: rgb(0, 0, 10)"></canvas>	
+	</body>
+</html>
